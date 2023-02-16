@@ -2,7 +2,7 @@ import java.util.Date;
 
 public class Rental {
 	private Video video ;
-	private int status ; // 0 for Rented, 1 for
+	private int status ; // 0 for Rented, 1 fo
 	private Date rentDate ;
 	private Date returnDate ;
 
