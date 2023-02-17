@@ -72,7 +72,7 @@ public class Customer {
 
 		eachPoint++;
 
-		if ((each.getVideo().getPriceCode() == Video.NEW_RELEASE) )
+		if ((each.getVideo().getPriceCode() == PriceCode.NEW_RELEASE) )
 			eachPoint++;
 
 		if ( daysRented > each.getDaysRentedLimit() )
@@ -82,12 +82,12 @@ public class Customer {
 
     private double calculateCharge(Rental each, double eachCharge, int daysRented) {
         switch (each.getVideo().getPriceCode()) {
-            case Video.REGULAR:
+            case REGULAR:
                 eachCharge += 2;
                 if (daysRented > 2)
                     eachCharge += (daysRented - 2) * 1.5;
                 break;
-            case Video.NEW_RELEASE:
+            case NEW_RELEASE:
                 eachCharge = daysRented * 3;
                 break;
         }

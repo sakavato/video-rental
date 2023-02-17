@@ -118,8 +118,8 @@ public class VRUI {
 		customers.add(james) ;
 		customers.add(brown) ;
 
-		Video v1 = new Video("v1", Video.CD, Video.REGULAR, new Date()) ;
-		Video v2 = new Video("v2", Video.DVD, Video.NEW_RELEASE, new Date()) ;
+		Video v1 = new Video("v1", VideoType.CD, PriceCode.REGULAR, new Date()) ;
+		Video v2 = new Video("v2", VideoType.DVD, PriceCode.NEW_RELEASE, new Date()) ;
 		videos.add(v1) ;
 		videos.add(v2) ;
 
@@ -197,10 +197,10 @@ public class VRUI {
 		String title = scanner.next() ;
 
 		System.out.println("Enter video type( 1 for VHD, 2 for CD, 3 for DVD ):") ;
-		int videoType = scanner.nextInt();
+		VideoType videoType = VideoType.values()[scanner.nextInt()];
 
 		System.out.println("Enter price code( 1 for Regular, 2 for New Release ):") ;
-		int priceCode = scanner.nextInt();
+		PriceCode priceCode =  PriceCode.values()[scanner.nextInt()];
 
 		Date registeredDate = new Date();
 		Video video = new Video(title, videoType, priceCode, registeredDate) ;
