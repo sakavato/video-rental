@@ -10,28 +10,58 @@ public class VRUI {
 
 	private List<Video> videos = new ArrayList<Video>() ;
 
-	public static void main(String[] args) {
-		VRUI ui = new VRUI() ;
+    boolean quit = false ;
 
-		boolean quit = false ;
-		while ( ! quit ) {
-			int command = ui.showCommand() ;
-			switch ( command ) {
-				case 0: quit = true ; break ;
-				case 1: ui.listCustomers() ; break ;
-				case 2: ui.listVideos() ; break ;
-				case 3: ui.register("customer") ; break ;
-				case 4: ui.register("video") ; break ;
-				case 5: ui.rentVideo() ; break ;
-				case 6: ui.returnVideo() ; break ;
-				case 7: ui.getCustomerReport() ; break;
-				case 8: ui.clearRentals() ; break ;
-				case -1: ui.init() ; break ;
-				default: break ;
-			}
-		}
-		System.out.println("Bye");
-	}
+    public static void main(String[] args) {
+        VRUI ui = new VRUI();
+
+        while (!ui.quit) {
+            ui.createCommand().execute();
+        }
+        System.out.println("Bye");
+    }
+
+    Command createCommand() {
+        int inputCommand = showCommand();
+        Command command;
+        switch (inputCommand) {
+            case 0:
+                command = new QuitCommand(this);
+                break;
+            case 1:
+                command = new ListCustomersCommand(this);
+                break;
+            case 2:
+                command = new ListVideosCommand(this);
+                break;
+            case 3:
+                command = new RegisterCommand(this, "customer");
+                break;
+            case 4:
+                command = new RegisterCommand(this, "video");
+                break;
+            case 5:
+                command = new RentVideoCommand(this);
+                break;
+            case 6:
+                command = new ReturnVideoCommand(this);
+                break;
+            case 7:
+                command = new GetCustomerReportCommand(this);
+                break;
+            case 8:
+                command = new ClearRentalsCommand(this);
+                break;
+            case -1:
+                command = new InitCommand(this);
+                break;
+            default:
+                command = new DefaultCommand(this);
+                break;
+        }
+
+        return command;
+    }
 
 	public void clearRentals() {
 		Customer foundCustomer = findCustomer();
@@ -82,7 +112,7 @@ public class VRUI {
 		return foundCustomer;
 	}
 
-	private void init() {
+	void init() {
 		Customer james = new Customer("James") ;
 		Customer brown = new Customer("Brown") ;
 		customers.add(james) ;
@@ -99,6 +129,10 @@ public class VRUI {
 		james.addRental(r1) ;
 		james.addRental(r2) ;
 	}
+
+    void quit() {
+        quit = true;
+    }
 
 	public void listVideos() {
 		System.out.println("List of videos");
